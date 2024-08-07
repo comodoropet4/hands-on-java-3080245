@@ -48,8 +48,35 @@ public class DataSource {
     return retrievedCustomer;
   }
 
-  public static void main(String[] args){
-    Customer exampleCustomer = getCustomer("twest8o@friendfeed.com");
-    System.out.println(exampleCustomer.getName());
+  public static Account getAccount(int accountId) {
+    String sqlAccountQuery = "SELECT * FROM accounts WHERE id = ?";
+    Account retrievedAccount = null;
+
+    try (
+      Connection bankDatabaseConnection = connect();
+      PreparedStatement accountQueryStatement = bankDatabaseConnection.prepareStatement(sqlAccountQuery);
+    ) {
+      accountQueryStatement.setInt(1, accountId);
+
+      try(ResultSet accountResultSet = accountQueryStatement.executeQuery()) {
+        retrievedAccount = new Account(
+          accountResultSet.getInt("id"),
+          accountResultSet.getString("type"),
+          accountResultSet.getDouble("balance")
+        );
+      }
+    } catch (SQLException exception) {
+      exception.printStackTrace();
+    }
+
+    return retrievedAccount;
+  }
+
+  public static void main(String[] args) {
+    Customer customer = getCustomer("twest8o@friendfeed.com");
+    System.out.println(customer.getName());
+
+    Account exampleAccount = getAccount(10385);
+    System.out.println(exampleAccount.getBalance());
   }
 }
