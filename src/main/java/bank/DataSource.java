@@ -9,17 +9,17 @@ import java.sql.SQLException;
 public class DataSource {
 
   public static Connection connect() {
-    String db_file = "jdbc:sqlite:resources/bank.db";
-    Connection connection = null;
+    String databaseFile = "jdbc:sqlite:resources/bank.db";
+    Connection bankDatabaseConnection = null;
 
     try {
-      connection = DriverManager.getConnection(db_file);
+      bankDatabaseConnection = DriverManager.getConnection(databaseFile);
       System.out.println("Connected!");
-    } catch (SQLException e) {
-      e.printStackTrace();
+    } catch (SQLException exception) {
+      exception.printStackTrace();
     }
 
-    return connection;
+    return bankDatabaseConnection;
   }
 
   public static Customer getCustomer(String customerUsername) {
