@@ -73,10 +73,12 @@ public class DataSource {
   }
 
   public static void main(String[] args) {
-    Customer customer = getCustomer("twest8o@friendfeed.com");
-    System.out.println(customer.getName());
+    Customer exampleCustomer = getCustomer("twest8o@friendfeed.com");
+    System.out.println(exampleCustomer.getName());
 
-    Account exampleAccount = getAccount(10385);
+    int customerAccountId = exampleCustomer.getAccountId();
+
+    Account exampleAccount = getAccount(customerAccountId);
     System.out.println(exampleAccount.getBalance());
   }
 }
